@@ -1,0 +1,6 @@
+Sharing counters
+
+There are eight counters. Five counters are red. Three counters are blue.
+Five plus three equals eight. The number of counters stays the same when we move them into a different arrangement.
+
+This is an original Piet demonstration resource for testing the material library. It is not a MindScape textbook or assessment.

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Material library · Piet Educator</title><link rel="stylesheet" href="/style.css"><script src="/library.js" defer></script></head>
+<body>
+<header><div class="brand">piet<span>educator</span></div><p>Books and learning material</p><a href="/">Back to reading</a></header>
+<main>
+<p class="notice">Owner library • Add material, review the extracted passages, then choose which ages may use them. New uploads stay out of the learner's reading space until approved.</p>
+<section class="card" id="unlock-card"><h1>Open your material library</h1><p>Use the library access code shown when Piet starts. Keep it with the parent, educator or device owner.</p><form id="unlock"><label for="owner-code">Library access code</label><input type="password" id="owner-code" autocomplete="off" required><button type="submit">Unlock library</button></form></section>
+<p id="library-status" role="status" aria-live="polite"></p>
+<div id="owner-space" hidden>
+<div class="buttons"><button class="secondary" id="lock">Lock library</button><button class="secondary" id="refresh-library">Refresh library</button></div>
+<div class="workspace library-workspace">
+<section class="card"><p class="eyebrow">1 · ADD YOUR MATERIAL</p><h2>Add a book or document</h2>
+<p>PDF, EPUB, Word (.docx), text or Markdown. Up to 20 MB per file and 500 pages per PDF. Scanned pages may need manual transcription; OCR is not available yet.</p>
+<form id="import-form">
+<label for="book-file">Choose a file</label><input id="book-file" type="file" accept=".pdf,.epub,.docx,.txt,.md" required>
+<label for="book-title">Book or resource title</label><input id="book-title" maxlength="200" required>
+<div class="field-pair"><div><label for="book-provider">Provider or author</label><input id="book-provider" maxlength="200" placeholder="For example, MindScape Education" required></div><div><label for="book-framework">Curriculum</label><input id="book-framework" maxlength="200" value="CAPS" required></div></div>
+<div class="field-pair"><div><label for="book-grade">Grade or learning level</label><input id="book-grade" maxlength="200" placeholder="For example, Grade 4" required></div><div><label for="book-subject">Subject</label><input id="book-subject" maxlength="200" placeholder="For example, Mathematics" required></div></div>
+<div class="field-pair"><div><label for="book-language">Language</label><input id="book-language" maxlength="200" placeholder="For example, English" required></div><div><label for="book-edition">Year or edition</label><input id="book-edition" maxlength="200" placeholder="Edition printed in this resource" required></div></div>
+<label class="check-row"><input id="permission" type="checkbox" required><span>I have permission to use this material in this local learning space.</span></label>
+<button id="import-button" type="submit">Add for review</button>
+</form></section>
+<section class="card"><p class="eyebrow">2 · CHOOSE WHAT TO REVIEW</p><h2>Your material</h2><p id="empty-library">No books added yet.</p><div id="material-list" class="material-list"></div></section>
+</div>
+<section class="card review-card" id="review-card" hidden><p class="eyebrow">3 · REVIEW BEFORE LEARNING</p><h2 id="review-title">Review material</h2><p id="review-meta" class="small"></p><div id="warnings"></div><button id="download-original" class="secondary">Download original for comparison</button>
+<label for="passage-select">Choose a passage</label><select id="passage-select"></select>
+<form id="review-form"><p id="passage-state" class="small"></p><label for="passage-text">Reading text — correct extraction errors here</label><textarea id="passage-text" rows="9" maxlength="6000" required></textarea><details><summary>Show text as originally extracted</summary><pre id="original-text" class="original-text"></pre></details>
+<fieldset><legend>Suitable age groups for this passage</legend><p class="small">Age controls are separate from the book's grade. Choose only the groups you have reviewed it for.</p><div class="age-choices"><label class="check-row"><input name="age-band" type="checkbox" value="6-9">6–9</label><label class="check-row"><input name="age-band" type="checkbox" value="10-12">10–12</label><label class="check-row"><input name="age-band" type="checkbox" value="13-17">13–17</label><label class="check-row"><input name="age-band" type="checkbox" value="adult">Adult</label></div></fieldset>
+<label for="reviewer">Reviewed by</label><input id="reviewer" maxlength="100" placeholder="Educator or reviewer name" required>
+<label class="check-row"><input id="review-confirm" type="checkbox"><span>I checked this passage against the original, including its meaning and age suitability.</span></label>
+<p class="small">Approval is your review decision. Text extraction does not establish accuracy or age suitability. Illustrations, tables and equations need particular care.</p>
+<div class="buttons"><button id="approve" type="submit">Approve this passage</button><button id="save-draft" type="button" class="secondary">Save as draft / withdraw approval</button></div>
+<p id="review-status" class="notice" hidden></p>
+</form>
+<details class="manual-section"><summary>Add a passage manually</summary><p>For a scanned page or a section that did not extract properly. Enter its source location, then review it in the same way.</p><form id="manual-form"><label for="manual-location">Source location</label><input id="manual-location" maxlength="200" placeholder="For example, printed page 12, activity 2" required><label for="manual-text">Passage text</label><textarea id="manual-text" maxlength="6000" rows="5" required></textarea><button id="manual-button" type="submit">Add as draft</button></form></details>
+</section>
+</div>
+<footer>Files and reviews are saved on this device. The owner code protects library actions within this prototype; it is not a verified parent identity. Learning responses continue through Piet's existing checks.</footer>
+</main></body></html>

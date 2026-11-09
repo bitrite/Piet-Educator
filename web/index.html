@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Piet Educator</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<header><div class="brand">piet<span>educator</span></div><p>One idea at a time.</p><span id="age">Loading your space…</span></header>
+<main>
+<p class="notice">Early prototype • Original sample lessons • Piet is an AI learning aid and can make mistakes. Use with an educator or trusted adult while we test it.</p>
+<section class="toolbar" aria-label="Reading preferences">
+<label>Text size <input id="size" type="range" min="18" max="32" value="22"></label>
+<label>Line space <select id="spacing"><option value="1.8">Comfortable</option><option value="2.2">Extra space</option><option value="1.5">Compact</option></select></label>
+<label>Font <select id="font"><option value="system-ui">Standard</option><option value="Verdana">Verdana</option><option value="Dyslexie">Dyslexie (installed locally)</option></select></label>
+<label>Page <select id="theme"><option value="warm">Warm</option><option value="plain">Plain</option><option value="dark">Dark</option></select></label>
+</section>
+<p id="font-note" class="small">Dyslexie requires a separately licensed local installation. If unavailable, your standard font is used.</p>
+<div class="reader-library"><a href="/library">Add or review learning material — owner library</a><button id="refresh-reading" class="secondary">Refresh reading library</button></div>
+<div class="workspace">
+<section class="card"><p class="eyebrow">YOUR READING SPACE</p><label for="material">Choose a book or resource</label><select id="material"></select><label for="lesson">Choose a passage</label><select id="lesson"></select><h1 id="title">Welcome to Piet</h1>
+<div id="passage" class="reading"></div><p id="source" class="small"></p>
+<div class="buttons"><button id="listen">Listen to this passage</button><button id="stop" class="secondary">Stop reading</button></div>
+<label for="speed">Reading speed <input id="speed" type="range" min="0.6" max="1.2" step="0.1" value="0.9"></label>
+<p id="voice-status" class="small" role="status"></p>
+</section>
+<section class="card"><p class="eyebrow">LET'S FIND ANOTHER WAY</p><h2>Make it make sense</h2><p>Choose how you would like to explore the passage. You can change your mind.</p>
+<label for="method">Try it this way</label><select id="method"><option value="explain">Explain simply</option><option value="steps">Break it into steps</option><option value="example">Give me an example</option><option value="picture">Describe a picture</option><option value="check">Help me check my understanding</option></select>
+<form id="ask"><label for="question">What would you like to understand?</label><textarea id="question" maxlength="1000" rows="3" placeholder="Which part feels unclear? No personal details needed."></textarea><button id="explain" type="submit">Make it make sense</button></form>
+<p id="status" role="status" aria-live="polite">Ready when you are.</p>
+<div id="answer" class="reading" aria-live="polite"></div><blockquote id="quote" hidden></blockquote><p id="validation" class="small"></p>
+<div class="buttons" id="feedback" hidden><button id="again" class="secondary">Try another way</button><button id="understood" class="secondary">This makes sense</button><button id="listen-answer" class="secondary">Listen to explanation</button></div>
+</section></div>
+<footer>Your reading preferences stay on this device. Questions and answers stay in memory for this visit. Approved learning material is saved in your local library. Voice playback uses local voices only. Dictation is planned.</footer>
+</main></body></html>

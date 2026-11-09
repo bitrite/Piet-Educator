@@ -1,0 +1,16 @@
+[
+  {
+    "id": "journey", "title": "Making sense of a sentence",
+    "text": "I was going to the shop. The speaker was on their way to the shop at a time in the past. The sentence does not tell us whether they arrived.",
+    "source": "Piet Educator original demonstration • Sentence meaning • Passage 1",
+    "status": "approved", "reviewed_by": "Prototype author — demonstration only; educator review pending",
+    "reviewed_on": "2026-11-09", "age_bands": ["6-9", "10-12", "13-17", "adult"]
+  },
+  {
+    "id": "sharing", "title": "Sharing equally",
+    "text": "There are twelve counters. Share them equally among three people. Each person receives four counters. Four plus four plus four equals twelve. There are no counters left over.",
+    "source": "Piet Educator original demonstration • Equal groups • Passage 2",
+    "status": "approved", "reviewed_by": "Prototype author — demonstration only; educator review pending",
+    "reviewed_on": "2026-11-09", "age_bands": ["6-9", "10-12", "13-17", "adult"]
+  }
+]
