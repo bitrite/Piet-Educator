@@ -15,12 +15,15 @@ they do not establish Piet integration, affiliation or approval.
 
 ## Piet implementation scope
 
-MindScape is the content provider; CAPS is the curriculum framework. Keep those
-as separate metadata fields when book ingestion is implemented. Each passage
-will need subject, grade, language, academic year/edition, book/chapter/page,
-source identity, access/usage permissions and educator review state. Term,
-topic and learning outcome must be mapped from the supplied materials rather
-than inferred from this marketing page. Public descriptions are not lessons.
+MindScape is the content provider; CAPS is the curriculum framework. These are
+separate fields in the implemented material library. Imports also record title,
+grade/learning level, subject, language, edition/year and the owner's permission
+declaration. Passages retain source locations, review state and age eligibility.
+
+Book access, term/topic sequences and learning outcomes still need to be mapped
+from the actual permitted materials. There are no structured term/outcome mapping
+fields or full-book retrieval in the current library. A marketing page does not
+provide that teaching content. See the [material library guide](docs/MATERIAL-LIBRARY.md).
 
 Keep curriculum grade separate from age safeguards and reading preferences.
 An adult using foundational material retains adult presentation. A learner's
@@ -37,3 +40,7 @@ passage set with traceable page references before adding wider coverage.
 This selection does not import books, connect the portals, copy assessments,
 or grant permission to distribute provider/publisher material. Existing original
 demo lessons remain explicitly labelled as demonstrations.
+
+For current capabilities and planned work, see the [README](README.md) and
+[roadmap](ROADMAP.md). Update this scope when a real pilot edition/grade is selected;
+provider coverage alone must not be labelled as completed Piet curriculum coverage.

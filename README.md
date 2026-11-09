@@ -1,162 +1,228 @@
-# Piet Educator — local foundation
+# Piet Educator
 
-An early, single-device prototype built alongside Piet. No existing Piet files
-were modified. The first curriculum source is MindScape Education, whose public
-site describes CAPS-aligned homeschooling from Grade R to Grade 12. Book access,
-specific editions and topic mapping are still pending. See [Curriculum scope](CURRICULUM.md).
-The two original demonstration passages are not MindScape material or syllabus coverage.
+**Private learning support. One idea at a time.**
 
-## Run
+Piet Educator is a local-first learning assistant being developed for children,
+teenagers and adults, with a focus on the reading and explanation needs of
+neurodivergent learners, particularly people with ADHD and dyslexia.
 
-**Windows:** see [Windows installation](WINDOWS-INSTALL.md). Extract the source
-ZIP and double-click **Install-Windows.cmd** to set up desktop shortcuts, local
-models and a separate persistent book library.
+A learner can open an approved passage, hear it read aloud, adjust its appearance,
+ask a question, and choose **Make it make sense** to explore the same idea through
+simpler wording, smaller steps, an everyday example or a description of a picture.
+The aim is to make learning material easier to approach while retaining the
+original meaning and keeping its source visible.
 
-Python 3.9+ and Ollama with downloaded `qwen3:8b` weights are required. PDF import
-also needs `pypdf` (`python3 -m pip install -r requirements.txt`); it is installed
-on this development machine. Other supported import formats use Python's standard
-library. No cloud calls or external web assets are needed. Start Ollama separately.
+**Current stage: supervised development prototype.** The core reader, local model,
+reviewed material library and Windows setup are implemented. Educator review,
+broader learner testing and stronger account controls are still needed before
+independent use by children. This is an educational aid; diagnosis, clinical
+therapy and medication advice are outside the current product.
+
+![An imported demonstration passage and a source-linked answer](material-library-preview.jpg)
+
+*The screenshot uses an original Piet demonstration resource, not a licensed
+MindScape book or a real learner's work.*
+
+## Who it is being built for
+
+- **Learners who need a different explanation:** choose another approach without
+  pressure to keep pace with someone else.
+- **Readers who want audio or presentation choices:** listen, change text size or
+  line spacing, and select a comfortable font or page theme.
+- **Adults working on foundational material:** use simpler explanations while
+  retaining respectful adult language. Reading grade and age settings are separate.
+- **Parents, educators and facilitators:** add permitted learning material, check
+  its text against the original, and approve passages for suitable age groups.
+
+These are design goals and supported interactions, not evidence of clinical
+benefit or a promise that one method works for every person.
+
+## Features available now
+
+| Feature | What you can do | Current boundary |
+| --- | --- | --- |
+| Local AI explanations | Use Ollama and downloaded Qwen 3 8B weights on your computer | Hardware affects speed; setup needs internet |
+| Make it make sense | Choose plain explanation, steps, an example, a verbal picture or an understanding question | Responses must pass checks; some useful retries are still withheld |
+| Read-aloud | Listen to passages and checked explanations with adjustable speed | Local English system voice required; highlighting depends on voice events |
+| Reading preferences | Adjust text size, line spacing, font and warm/plain/dark theme | Saved in this browser; no individual learner profiles yet |
+| Optional Dyslexie font | Select a separately licensed font already installed locally | Font is not bundled; fallback font is used if unavailable |
+| Material library | Import PDF, EPUB, DOCX, UTF-8 text and Markdown | Text extraction only; one file per upload, up to 20 MB |
+| Passage review | Correct extracted text, compare the original, choose ages and approve | Approval is a human review decision, not automatic curriculum certification |
+| Source references | See a book/edition and page or section reference with an exact excerpt | Questions use the selected passage, not a search across the entire book |
+| Age settings | Run a space for ages 6–9, 10–12, 13–17 or adults | One setting per server; not verified age assurance |
+| Private library management | Use a separate owner code for drafts, originals and approvals | Shared-code capability, not parent/teacher accounts |
+| Persistent local books | Keep originals, corrections and review history across restarts | Application does not encrypt the library |
+| Windows setup | Install requirements, download the model and create desktop/Start menu shortcuts | Source installer for x64 Windows; interactive desktop smoke test pending |
+
+## Feature examples
+
+The following examples illustrate the intended interaction. Generated wording may
+vary. A response is displayed only if its checks pass.
+
+### 1. Make a sentence make sense
+
+**Passage:** “I was going to the shop.” The demonstration material explains that
+this happened in the past and does not establish whether the speaker arrived.
+
+**Learner:** “Does this prove the speaker arrived?”
+
+**Example explanation:** “No. It tells us the speaker was on their way to the
+shop. It does not tell us whether they got there.”
+
+Choose **Break it into steps** to explore who is speaking, what was happening,
+where they were going and when. **Describe a picture** gives a written description
+of a scene; it does not generate an image. **Try another way** carries the last
+checked explanation into the next request and cycles to a different method.
+
+### 2. Ask about a resource you added
+
+**Original demonstration passage:** “There are eight counters. Five counters are
+red. Three counters are blue.”
+
+**Learner:** “How many counters are blue?”
+
+**Verified browser example:** “Three counters are blue.”
+
+Piet displayed the same phrase as its source excerpt, alongside the resource's
+edition and section reference. This flow was tested through upload, draft review,
+approval, reader refresh and a local-model answer.
+
+### 3. Listen and adjust the reading space
+
+Choose **Listen to this passage**, reduce reading speed, and increase text size
+or line spacing. Choose **Listen to explanation** after a checked answer appears.
+If a local voice emits word-boundary events, Piet highlights the word being spoken.
+If no local English voice is available, the reader explains that a voice needs to
+be installed. Voice questions and dictation are still planned.
+
+### 4. Review a worksheet before a child sees it
+
+An owner uploads a permitted worksheet and enters its provider, curriculum,
+grade, subject, language and edition. It first appears as draft passages. The
+reviewer corrects extraction errors, checks the original, selects suitable ages
+and approves each passage. A learner sees only approved passages for the running
+age setting. Saving a passage as draft withdraws it from new learning requests.
+
+### 5. Keep age and learning level separate
+
+An adult can use a foundational numeracy passage in the adult space. Choosing
+**Explain simply** does not switch to a child age policy. A younger learner does
+not gain access to adult-only passages by changing a reading preference or
+asking Piet to ignore the age setting.
+
+## Start using Piet
+
+### Windows
+
+Download this private repository's ZIP while signed into GitHub, choose
+**Extract All**, then double-click **Install-Windows.cmd**. Setup checks Python
+and Ollama, installs missing requirements through WinGet where available, downloads
+the local model and creates Piet Educator shortcuts.
+
+See [Windows installation and transfer guide](WINDOWS-INSTALL.md) for the full
+steps, private library location, age settings and troubleshooting. The first model
+download is approximately 5.2 GB; ordinary reading and explanations then use local
+resources. This is a source installer, not a signed MSI or Store app.
+
+### macOS/Linux source launch
+
+Install Python 3.9+ and Ollama, then run the following from the repository folder:
 
 ```sh
-cd Piet-Educator
-python3 server.py
-```
-
-Open http://127.0.0.1:8767. Default age band is 6–9. The device owner can start a
-different learning space with `--age-band 10-12`, `--age-band 13-17` or
-`--age-band adult`. Only one profile is supported per server process. No dates
-of birth or diagnoses are collected. Younger children are outside this prototype.
-The learner session cannot change the age, model, source text or approval status.
-
-## Add books and learning material
-
-Open **Add or review learning material — owner library**, or visit
-http://127.0.0.1:8767/library.
-
-1. Unlock with the library access code printed when Piet starts. Its local copy
-   is in `data/owner-key`. The code is never included in the learner session or
-   saved in browser storage. Use **Lock library** when finished; leaving an owner
-   page unlocked gives that browser access to library actions.
-2. Select PDF, EPUB, DOCX, UTF-8 text or Markdown, up to 20 MB. PDFs are limited to
-   500 pages; extracted text is limited to one million characters per import.
-3. Enter title, provider/author, curriculum, grade/level, subject, language and
-   edition. Confirm permission to use the material. This records the owner's
-   declaration, not a grant of publisher rights. The provider is not assumed to
-   be MindScape merely because it is our first planned curriculum source.
-4. Import creates draft passages. Review the text against the downloadable
-   original, correct extraction errors, choose suitable age groups, enter a
-   reviewer name and confirm the review before approving each passage.
-5. Use **Refresh reading library** in the reader, then choose the book/resource
-   and passage. Only approved passages for the server's age band appear. They use
-   the same read-aloud and response validation as the original sample lessons.
-6. Save an approved passage as draft to withdraw it. New learner questions cannot
-   use revoked passages. An in-flight explanation is withheld if its passage has
-   changed or been withdrawn. Text already displayed in a browser is not remotely
-   erased; refresh the reading space after a review change.
-
-The library saves original files, extracted text, corrected text, source locations
-and review history under `data/`. It survives restarts. Back up the whole folder
-privately; it is excluded from version control. Files have local owner permissions,
-but are not encrypted by the application. `--data-dir` selects another location.
-
-PDF references use physical file page positions, EPUB uses reading-order sections,
-and Word/text resources use section/passage references rather than invented page
-numbers. Diagrams, equations, tables and pagination need review. Scanned pages
-are flagged when no text is found; use **Add a passage manually** for a checked
-transcription. OCR, visual extraction, DRM handling and full-book question retrieval
-are not implemented. Password-protected PDFs and EPUBs declaring encryption are
-rejected. Imported text is never rendered as executable markup.
-
-The owner code is a separate library capability, not verified parent identity or
-a multi-user account system. Reading grade and approved age groups remain separate.
-
-Optional named Educator model (configuration of Qwen, **not** fine-tuning):
-
-```sh
+python3 -m pip install -r requirements.txt
+ollama pull qwen3:8b
 ollama create piet-educator -f Modelfile
 python3 server.py --model piet-educator --judge-model qwen3:8b
 ```
 
-The application sends its full policy on every request; running the named model
-alone does not enable application safeguards. Cloud-tagged models are rejected;
-the adapter also checks local weight metadata before its first inference. Set
-`OLLAMA_NO_CLOUD=1` in the Ollama service environment as an additional deployment
-control if supported by your Ollama installation. The application itself contacts
-only `127.0.0.1:11434`, ignores proxy settings and refuses HTTP redirects.
+Open `http://127.0.0.1:8767`. The default age band is `6-9`; the owner can launch
+with `--age-band 10-12`, `--age-band 13-17` or `--age-band adult`. Source launches
+store books in `data/` unless `--data-dir` selects another folder.
 
-## Working foundation
+The named model is a configuration of Qwen, not newly trained educational weights.
+The application adds the teaching policy and validation; running the model alone
+does not enable the application's safeguards.
 
-- Original sample passage reader, with source always visible.
-- Make it make sense: simpler explanation, steps, everyday example, verbal
-  description of a picture, or an understanding question. Retry carries the last
-  checked explanation and changes method; no pressure to continue.
-- Age policies independent of reading preferences. Adult simplification retains
-  adult language. Bands are design choices pending educator review.
-- Local reading preferences: size, line spacing, theme and font. Dyslexie uses
-  a locally installed copy if available; no font is bundled or licence granted.
-- Local system-voice playback only, with word highlighting when the voice emits
-  boundary events. No remote speech-recognition fallback. English only for now.
-- Structured answer checks followed by a separate semantic review request.
-  An unavailable model, malformed review, failed check or uncertainty withholds
-  the generated answer. Raw drafts and review details never reach the browser.
-- Learning questions and answers in memory only; presentation preferences use
-  browser local storage. The material library and review history persist on disk.
-  No prompt logs, audio recording, analytics or shared learner memory.
-- Loopback-only server, origin/host checks, per-process request token, request
-  limits, fixed static routes, restrictive browser policy and one inference at a time.
+## Add learning material
 
-## What validation means here
+**Upload → review → approve suitable ages → refresh the reader.**
 
-1. Content catalog: explicit age eligibility, provenance, review metadata and
-   approved status required. The sample passages have author approval only;
-   **qualified educator review is still pending**.
-2. Structure: typed fields, age-dependent length, no links/HTML and an exact
-   source excerpt. An exact excerpt confirms provenance, not the answer's truth.
-3. Semantic review: safety, age suitability, source grounding, preserved meaning
-   and privacy must all return literal `true` before an answer is displayed.
-4. Boundary regression tests: age override, draft content, fabricated citation,
-   unsafe/ungrounded verdicts, malformed reviews and unavailable services.
-5. Live evaluation: run `python3 evaluate_live.py --model piet-educator` with
-   local Ollama. Results record outcomes only, not learner conversations.
+The owner library is at `http://127.0.0.1:8767/library`. A source launch prints its
+owner code; Windows desktop launches keep it in
+`%LOCALAPPDATA%\PietEducator\data\owner-key`. It is never supplied in a learner
+session. Lock the library when finished.
 
-This is not validated for independent use by children. The review pass can use the
-same underlying model and therefore share its blind spots. Word and pattern
-checks are supplementary and incomplete. Age suitability and factual correctness
-are not guaranteed. The device owner's command line is the configuration boundary,
-not verified age assurance or a parent account system. Anyone with device access
-can launch another profile. The local HTTP server is for controlled development,
-not school-network or multi-user deployment.
+See the [material library guide](docs/MATERIAL-LIBRARY.md) for formats, review,
+manual transcription, withdrawal, limits, and backup. Scanned pages need manual
+transcription today; automatic OCR and diagram interpretation are not implemented.
 
-## Before a learner pilot
+## Curriculum direction
 
-- Educator and safeguarding review of age bands, curriculum material and sample
-  outputs. Agree how age-appropriate health, history and other sensitive education
-  is reviewed rather than indiscriminately blocking topics.
-- Larger adversarial tests, repeatability and independent human review, with
-  explicit acceptance thresholds and no unresolved critical failures.
-- Owner authentication, protected profiles, consent/assent and practical account
-  isolation for shared devices; explain to children what is saved and who sees it.
-- Human-help flow reviewed locally: abuse disclosures, distress, immediate danger
-  and limits of confidentiality. Current shortcut is a minimal supportive message,
-  not comprehensive crisis detection or an alerting service.
-- Broader book-import evaluation, OCR and diagram verification. Text import with
-  draft → review → approval, age eligibility and source references is implemented;
-  full curriculum/topic mapping and publisher licensing remain to be completed.
-- Offline speech-to-text, language/accent tests and correction before treating
-  recognition output as learner answers. Playback does not establish reading ability.
-- Preference persistence with reset, bookmarks, reviewed progress measures and
-  learner/educator testing for ADHD and dyslexia. No clinical treatment claims.
-- Font distribution/export licensing and accessibility testing across devices.
+Our first selected provider is **MindScape Education**, with **CAPS** as the
+curriculum framework. These remain separate metadata fields. Book access,
+specific editions, topic sequences and curriculum outcome mapping are pending.
+No MindScape books are included and no affiliation or integration is claimed.
 
-## Verification
+See [curriculum scope](CURRICULUM.md). Although the provider covers Grade R through
+matric, Piet's current age settings begin at 6. Early-years support requires its
+own reviewed design.
+
+## Privacy, age settings and validation
+
+The application contacts a fixed loopback Ollama endpoint, uses local system
+voices, and has no cloud explanation fallback. Initial dependency/model downloads
+need internet. Questions and answers stay in memory for the current visit;
+presentation preferences use browser storage. Books and review history persist
+locally. No application prompt logs, recordings or analytics are collected.
+
+Before a generated explanation is shown, Piet checks its structure, length and
+source excerpt, then requests a semantic review of safety, age suitability,
+grounding, meaning and privacy. Missing services, malformed reviews or failed
+checks withhold the generated answer. Exact quotation is not proof of correctness,
+and the review can use the same underlying model with the same blind spots.
+
+The owner code is not a verified parent identity. Shared-device account isolation,
+more complete safeguarding flows and independent review remain open work. The
+loopback server is intended for controlled local development, not a school-network
+or multi-user deployment. See [privacy and validation](docs/PRIVACY-AND-VALIDATION.md).
+
+## What is still planned
+
+Offline dictation and voice questions; OCR and visual material handling; fuller
+curriculum mapping and book retrieval; protected owner/learner accounts; bookmarks
+and reviewed progress measures; broader accessibility and learner testing; and
+professional review of any future therapy-support content.
+
+These are roadmap items, not current features. See [roadmap](ROADMAP.md) for
+priorities and the readiness work needed before a learner pilot.
+
+## Documentation and verification
+
+| Guide | Purpose |
+| --- | --- |
+| [Learner and facilitator guide](docs/USER-GUIDE.md) | Everyday use and realistic example prompts |
+| [Material library](docs/MATERIAL-LIBRARY.md) | Import, source review, age approval and backup |
+| [Windows installation](WINDOWS-INSTALL.md) | Setup, shortcuts, updates and Mac-to-Windows transfer |
+| [Privacy and validation](docs/PRIVACY-AND-VALIDATION.md) | Local data, checks and their limits |
+| [Curriculum scope](CURRICULUM.md) | MindScape/CAPS direction and pending materials |
+| [Architecture](docs/ARCHITECTURE.md) | Components, request flow and storage boundaries |
+| [Validation record](VALIDATION.md) | Evidence and outstanding target-device checks |
+| [Roadmap](ROADMAP.md) | Implemented foundation and planned work |
+| [Change history](CHANGELOG.md) | Record of shipped changes |
+| [Contributing and documentation upkeep](CONTRIBUTING.md) | Required checks and which guides to update |
+
+The baseline automated suite has **42 tests** and passed on the
+[Windows runner for the installer foundation](https://github.com/bitrite/Piet-Educator/actions/runs/42602249169).
+That checks application compatibility, installer syntax, payload layout and Python
+detection; it does not exercise a complete interactive Windows installation or
+certify child safety. Historical live-model and browser checks are recorded in
+[VALIDATION.md](VALIDATION.md).
 
 ```sh
 python3 -m unittest discover -s tests -v
+python3 tools/check_docs.py
 ```
 
-Design references:
-- [UNICEF Guidance on AI and Children](https://www.unicef.org/innocenti/reports/policy-guidance-ai-children)
-- [Ollama structured chat API](https://docs.ollama.com/api/chat)
-
-UNICEF's guidance informs the safety, privacy, inclusion and transparency design;
-this prototype has not been assessed for compliance or endorsed by UNICEF.
+Feature, installation, data-handling and limit changes must update their supporting
+guides in the same change. CI also checks local Markdown links; it does not verify
+the truth of documentation claims.

@@ -1,5 +1,9 @@
 # Install Piet Educator on Windows
 
+For daily use, see the [learner guide](docs/USER-GUIDE.md); for upload and approval,
+see the [material library guide](docs/MATERIAL-LIBRARY.md). The [README](README.md)
+contains the product description, examples and current feature boundaries.
+
 ## First installation
 
 1. Sign into GitHub on the Windows computer and open
@@ -105,3 +109,9 @@ with Windows PowerShell, and verifies the payload layout. It does not install
 Ollama, download model weights or click through Windows setup prompts. The complete
 interactive installation and system-voice playback still need a Windows desktop
 smoke test. Piet remains a supervised development prototype.
+
+The installer foundation passed its [Windows compatibility run](https://github.com/bitrite/Piet-Educator/actions/runs/42602249169)
+on 9 November 2026. That run exercised all 42 automated tests, PowerShell parsing,
+payload validation and Python detection/invocation; it did not complete the full
+interactive setup. See [validation evidence](VALIDATION.md) and the
+[privacy guide](docs/PRIVACY-AND-VALIDATION.md).

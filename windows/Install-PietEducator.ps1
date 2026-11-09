@@ -58,7 +58,7 @@ function Test-OllamaReady {
 }
 
 try {
-    $Required = @('server.py', 'educator.py', 'library.py', 'extract_material.py', 'windows_launcher.py', 'requirements.txt', 'Modelfile', 'lessons.json', 'web', 'tests', 'windows\Start-PietEducator.cmd')
+    $Required = @('server.py', 'educator.py', 'library.py', 'extract_material.py', 'windows_launcher.py', 'requirements.txt', 'Modelfile', 'lessons.json', 'web', 'tests', 'docs', 'tools\check_docs.py', 'windows\Start-PietEducator.cmd')
     foreach ($Relative in $Required) {
         if (-not (Test-Path -LiteralPath (Join-Path $SourceRoot $Relative))) { throw "Missing $Relative. Extract the complete Piet-Educator ZIP before running setup." }
     }
@@ -108,9 +108,9 @@ try {
     $Sid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
     Invoke-Checked 'icacls.exe' @($InstallHome, '/inheritance:r', '/grant:r', "*${Sid}:(OI)(CI)F", '*S-1-5-18:(OI)(CI)F', '*S-1-5-32-544:(OI)(CI)F')
 
-    $Files = @('server.py', 'educator.py', 'library.py', 'extract_material.py', 'windows_launcher.py', 'requirements.txt', 'Modelfile', 'lessons.json', 'README.md', 'CURRICULUM.md', 'VALIDATION.md', 'WINDOWS-INSTALL.md')
+    $Files = @('server.py', 'educator.py', 'library.py', 'extract_material.py', 'windows_launcher.py', 'evaluate_live.py', 'requirements.txt', 'Modelfile', 'lessons.json', 'README.md', 'CURRICULUM.md', 'VALIDATION.md', 'WINDOWS-INSTALL.md', 'ROADMAP.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'material-library-preview.jpg', 'preview.jpg')
     foreach ($File in $Files) { Copy-Item -LiteralPath (Join-Path $SourceRoot $File) -Destination (Join-Path $App $File) -Force }
-    foreach ($Folder in @('web', 'tests')) {
+    foreach ($Folder in @('web', 'tests', 'docs', 'tools', 'windows')) {
         New-Item -ItemType Directory -Force -Path (Join-Path $App $Folder) | Out-Null
         Copy-Item -Path (Join-Path $SourceRoot "$Folder\*") -Destination (Join-Path $App $Folder) -Recurse -Force
     }

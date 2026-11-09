@@ -81,3 +81,15 @@ scans. OCR, full-book retrieval and independent learner readiness are pending.
 - No interactive Windows installation, WinGet prerequisite installation, Windows
   GPU model run or system-voice playback has been performed on this Mac. These
   remain target-device smoke checks; automated compatibility is narrower.
+
+## Documentation upkeep — 9 November 2026
+
+- Added product examples and linked learner, material-library, privacy and
+  architecture guides, plus roadmap, change history and contribution requirements.
+- Corrected curriculum import status and Windows/source owner-code descriptions.
+- Added local Markdown file/image destination checks to the Windows workflow.
+- Extended the Windows payload allowlist so installed guides retain their local
+  source/documentation/image links. This does not copy private material or credentials.
+- Documentation link checks validate destinations, not external URLs, heading
+  anchors, clinical statements or actual feature behaviour. Examples are labelled
+  illustrative or verified against the recorded synthetic demonstrations.
