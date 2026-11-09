@@ -67,3 +67,17 @@ No licensed MindScape content or real learner information was imported. The owne
 code is not a verified parent account. PDF/EPUB/Word extraction is text-only;
 manual source checking remains necessary for layout, diagrams, equations and
 scans. OCR, full-book retrieval and independent learner readiness are pending.
+
+## Windows setup foundation — 9 November 2026
+
+- Added a source-based Windows installer, desktop/Start menu launchers, separate
+  installed data location and Windows permissions. Installer uses explicit WinGet
+  package IDs and leaves licence prompts interactive.
+- Combined local suite: **42 tests passed**, including Windows UTF-8 BOM settings,
+  paths with spaces, invalid-age rejection, local-model checks and matching an
+  existing server's age and data location before reuse.
+- GitHub Windows workflow runs the same suite, parses the installer with Windows
+  PowerShell, validates its payload and exercises Python detection/invocation.
+- No interactive Windows installation, WinGet prerequisite installation, Windows
+  GPU model run or system-voice playback has been performed on this Mac. These
+  remain target-device smoke checks; automated compatibility is narrower.

@@ -8,6 +8,10 @@ The two original demonstration passages are not MindScape material or syllabus c
 
 ## Run
 
+**Windows:** see [Windows installation](WINDOWS-INSTALL.md). Extract the source
+ZIP and double-click **Install-Windows.cmd** to set up desktop shortcuts, local
+models and a separate persistent book library.
+
 Python 3.9+ and Ollama with downloaded `qwen3:8b` weights are required. PDF import
 also needs `pypdf` (`python3 -m pip install -r requirements.txt`); it is installed
 on this development machine. Other supported import formats use Python's standard

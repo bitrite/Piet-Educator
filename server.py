@@ -1,5 +1,6 @@
 """Single-profile loopback prototype with a separate owner-controlled material library."""
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -62,6 +63,8 @@ def make_server(band="6-9", port=8767, model="qwen3:8b", judge_model=None, servi
                 return self.send(403, {"error": "Open Piet from its local address."})
             if self.path == "/api/session":
                 return self.send(200, {"token": token, "age_band": service.band,
+                    "application": "piet-educator",
+                    "instance_id": hashlib.sha256(str(library.root.resolve()).casefold().encode()).hexdigest()[:16],
                     "age_label": AGE_BANDS[service.band][0], "lessons": service.available_lessons(),
                     "model": model, "prototype": True})
             if self.path.startswith("/api/library"):
