@@ -1,8 +1,9 @@
 # Learner and facilitator guide
 
 Use [Windows setup](../WINDOWS-INSTALL.md) or the [source launch](../README.md)
-to open Piet. This guide describes the current prototype; it does not assume
-voice input, saved learning progress or full-book search.
+to open Piet. This guide describes the current prototype. Voice input and full-book
+search remain pending. Study activities offer optional participation totals and
+review references, not grades or authenticated private learner profiles.
 
 ## A first learning session
 
@@ -61,6 +62,14 @@ Playback uses an installed local English voice. Word highlighting depends on the
 voice emitting boundary events. No voice means playback is unavailable; install
 an offline voice through the operating system. Piet currently accepts questions
 by typing. Dictation, spoken questions and pronunciation assessment are pending.
+
+## Study activities
+
+Below the reader, choose a study method and start a small quest. Explore the idea,
+try a response or use support, then reflect. **Take a break** has no timer or lost
+credit. **Progress and celebration choices** controls participation achievements,
+the garden/quiet display and opt-in browser saving. Typed practice answers are not
+saved in that progress record. See the [study guide](STUDY-METHODS.md) for details.
 
 ## When something does not work
 

@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Piet Educator</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Piet Educator</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script><script src="/study-state.js" defer></script><script src="/study.js" defer></script></head>
 <body>
 <header><div class="brand">piet<span>educator</span></div><p>One idea at a time.</p><span id="age">Loading your space…</span></header>
 <main>
-<p class="notice">Early prototype • Original sample lessons • Piet is an AI learning aid and can make mistakes. Use with an educator or trusted adult while we test it.</p>
+<p class="notice">Early prototype • Learning support • Piet is an AI learning aid and can make mistakes. Use with an educator or trusted adult while we test it.</p>
 <section class="toolbar" aria-label="Reading preferences">
 <label>Text size <input id="size" type="range" min="18" max="32" value="22"></label>
 <label>Line space <select id="spacing"><option value="1.8">Comfortable</option><option value="2.2">Extra space</option><option value="1.5">Compact</option></select></label>
@@ -27,5 +27,36 @@
 <div id="answer" class="reading" aria-live="polite"></div><blockquote id="quote" hidden></blockquote><p id="validation" class="small"></p>
 <div class="buttons" id="feedback" hidden><button id="again" class="secondary">Try another way</button><button id="understood" class="secondary">This makes sense</button><button id="listen-answer" class="secondary">Listen to explanation</button></div>
 </section></div>
+<section class="card study-card" aria-labelledby="study-title">
+<p class="eyebrow">SMALL STEPS, YOUR PACE</p><h2 id="study-title">A small study quest</h2>
+<p>Explore one idea, try it, then reflect. Hints, listening and breaks are always welcome.</p>
+<div class="field-pair"><div><label for="study-method">How would you like to practise?</label><select id="study-method"><option value="recall">Help me remember</option><option value="worked">Show me, then help me try</option><option value="teach">Let me teach you</option><option value="concrete">Make it concrete</option><option value="mission">One small mission</option><option value="review">Bring it back</option></select></div><div><label for="study-challenge">Choose a comfortable challenge</label><select id="study-challenge"><option value="familiar">Practise a familiar idea</option><option value="explore">Explore a connection</option></select></div></div>
+<div class="buttons"><button id="study-start">Start a small quest</button><button id="study-pause" class="secondary" hidden>Take a break</button></div>
+<p id="study-status" role="status" aria-live="polite">Choose a passage above, then a study method.</p>
+<div id="study-quest" hidden>
+<ol class="quest-steps" aria-label="Study steps"><li id="step-explore">Explore</li><li id="step-try">Try</li><li id="step-reflect">Reflect</li></ol>
+<p id="study-instruction" class="reading"></p><div id="study-example" class="reading study-example" hidden></div>
+<button id="study-ready">Ready to try</button>
+<div id="study-practice" hidden><p id="study-question" class="reading"></p>
+<label class="check-row"><input id="study-cover" type="checkbox"><span>Cover the passage while I remember. I can uncover it whenever I choose.</span></label>
+<form id="study-response"><label for="study-attempt">Try it in your own words</label><textarea id="study-attempt" autocomplete="off" rows="3" maxlength="800" placeholder="Spelling does not need to be perfect. You can also choose Show me."></textarea><button id="study-submit" type="submit">Explore my response</button></form>
+<div class="buttons"><button id="study-hint" class="secondary">Give me a hint</button><button id="study-reveal" class="secondary">Show me — help is welcome</button><button id="study-listen" class="secondary">Listen to the question</button></div>
+<p id="study-hint-text" class="reading" hidden></p><div id="study-feedback" class="reading" aria-live="polite"></div><blockquote id="study-quote" hidden></blockquote>
+</div>
+<div id="study-reflection" hidden><label for="study-reflect">What would you like to notice?</label><select id="study-reflect"><option value="tried">I tried one idea</option><option value="help">I used support</option><option value="again">I would like another try</option></select>
+<label for="study-review-days">Would you like to revisit this idea?</label><select id="study-review-days"><option value="0">No review planned</option><option value="1">In one day</option><option value="3">In three days</option><option value="7">In seven days</option></select>
+<p class="small">Review references stay in this visit unless you opt into browser saving below. No notifications, missed-day penalties or deadlines.</p><button id="study-finish">Finish this quest</button></div>
+</div>
+<details class="study-settings"><summary>Progress and celebration choices</summary>
+<label class="check-row"><input id="study-rewards" type="checkbox" checked><span>Show participation progress and achievements</span></label>
+<label for="study-celebration">Celebration style</label><select id="study-celebration"><option value="message">A quiet message</option><option value="garden">A small growing garden</option><option value="quiet">No celebration</option></select>
+<label class="check-row"><input id="study-save" type="checkbox"><span>Remember participation and review references on this browser</span></label>
+<p class="small">Off by default. Saving is shared by people using this browser and age space; it is not a private learner account. No answers are saved. Turn it off or clear it before someone else uses this space.</p>
+<button id="study-clear" class="secondary">Clear this space's practice progress</button>
+</details>
+<div id="study-progress" class="study-progress"><p id="study-total">No practice recorded this visit. Start whenever you choose.</p><div id="study-garden" class="study-garden" aria-hidden="true" hidden></div><ul id="study-badges" class="study-badges" aria-label="Personal participation achievements"></ul></div>
+<p id="study-celebrate" role="status" aria-live="polite" hidden></p>
+<section aria-labelledby="review-list-title"><h3 id="review-list-title">Ideas to revisit</h3><p id="study-review-empty" class="small">Your optional review list will appear here.</p><div id="study-reviews" class="material-list"></div></section>
+</section>
 <footer>Your reading preferences stay on this device. Questions and answers stay in memory for this visit. Approved learning material is saved in your local library. Voice playback uses local voices only. Dictation is planned.</footer>
 </main></body></html>

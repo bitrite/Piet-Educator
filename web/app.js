@@ -26,6 +26,7 @@ function voiceStatus() {
   $('voice-status').textContent = localVoice() ? 'An English voice installed on this device is available. Highlighting depends on your voice.' : 'No local English voice is available yet. Install an offline system voice to listen.';
   $('listen').disabled = !localVoice();
   $('listen-answer').disabled = !localVoice();
+  if ($('study-listen')) $('study-listen').disabled = !localVoice();
 }
 function speak(text, container) {
   stopReading();
@@ -59,6 +60,7 @@ function chooseLesson() {
   $('source').textContent = activeLesson.source; previous = ''; answer = '';
   $('answer').textContent = ''; $('question').value = ''; $('quote').hidden = true;
   $('validation').textContent = ''; $('feedback').hidden = true; $('status').textContent = 'Ready when you are.';
+  window.dispatchEvent(new Event('piet-passage-changed'));
 }
 $('lesson').onchange = chooseLesson;
 function fillPassages() {
@@ -91,6 +93,7 @@ $('ask').onsubmit = async event => {
   finally { $('explain').disabled = false; $('again').disabled = false; $('lesson').disabled = false; $('material').disabled = false; $('refresh-reading').disabled = false; }
 };
 $('again').onclick = () => {
+  window.dispatchEvent(new Event('piet-another-explanation'));
   const select = $('method'); select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
   $('ask').requestSubmit();
 };
@@ -107,6 +110,7 @@ async function start() {
     if (resources.has(selected)) $('material').value = selected;
     if (!session.lessons.length) throw new Error('No reviewed passages are available for this age setting.');
     fillPassages();
+    window.dispatchEvent(new Event('piet-session-loaded'));
   } catch (error) { $('status').textContent = error.message; $('explain').disabled = true; }
 }
 $('refresh-reading').onclick = start;

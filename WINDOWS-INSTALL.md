@@ -3,6 +3,9 @@
 For daily use, see the [learner guide](docs/USER-GUIDE.md); for upload and approval,
 see the [material library guide](docs/MATERIAL-LIBRARY.md). The [README](README.md)
 contains the product description, examples and current feature boundaries.
+For study quests, optional achievements and voluntary review dates, see
+[study methods](docs/STUDY-METHODS.md). These assets are included in the Windows
+payload; the application still does not require Node.js.
 
 ## First installation
 

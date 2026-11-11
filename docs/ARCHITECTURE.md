@@ -11,6 +11,7 @@ multi-user identity system in this version.
 | --- | --- |
 | [server.py](../server.py) | HTTP routes, loopback binding, request boundaries and application composition |
 | [educator.py](../educator.py) | Age policies, explanation methods, local Ollama adapter and response gate |
+| [study.py](../study.py) | Checked study cards, source fingerprints and bounded in-memory activity cache |
 | [library.py](../library.py) | Original-file storage, draft passages, transactional reviews and eligible lessons |
 | [extract_material.py](../extract_material.py) | Isolated text extraction for supported document formats |
 | [windows_launcher.py](../windows_launcher.py) | Installed configuration, model readiness and matching an existing learning space |
@@ -60,6 +61,8 @@ age setting; grade is descriptive metadata, not the age access rule.
 | `data/owner-key` | Persistent library capability code |
 | Browser local storage | Presentation preferences only |
 | Request/browser memory | Current question, answer and retry context |
+| Study-card cache | Generated source-bound teaching cards, up to 128 for one hour; no learner responses |
+| Optional browser practice storage | Participation totals, fixed badges, source IDs/fingerprints and voluntary review dates |
 | Ollama model store | Downloaded model weights, outside the application library |
 
 `--data-dir` changes source-launch library location. Windows keeps installed data
@@ -72,6 +75,8 @@ the source does not move private books. See [backup/transfer](MATERIAL-LIBRARY.m
 | --- | --- | --- |
 | `GET /api/session` | Eligible reading resources and local session information | Trusted local host/origin |
 | `POST /api/explain` | Explain a selected approved passage | Learner token |
+| `POST /api/study/create` | Generate and check a study card from an approved passage | Learner token |
+| `POST /api/study/action` | Request a hint, explicit suggested answer or checked feedback | Learner token |
 | `GET /api/library` | List local materials and review counts | Owner code |
 | `POST /api/library/import` | Upload a supported file as draft | Owner code |
 | `GET /api/library/{id}` | Read draft/review details | Owner code |
@@ -81,3 +86,21 @@ the source does not move private books. See [backup/transfer](MATERIAL-LIBRARY.m
 
 These are local prototype routes, not a versioned public integration API. The
 owner capability is not a role/account service. See [privacy and validation](PRIVACY-AND-VALIDATION.md).
+
+## Study slices
+
+Card generation reuses `Educator.checked_result`, the shared structural and semantic
+response gate. All card fields are checked before public question/scaffolding fields
+are returned; suggested answers remain on the server until explicit support or
+feedback. Every action re-resolves age-eligible content and its fingerprint. Feedback
+requests are not retained in the card cache. The browser records participation,
+not correctness, and refreshes source eligibility before finishing an activity.
+
+For feedback on a derived practice problem, the checked question/reference becomes
+the immediate model/review evidence. The original approved source is still checked
+for age eligibility, edits and withdrawal. Responses explicitly label this derived
+practice quotation and require an additional `activity_consistent` review result.
+
+`web/study-state.js` contains testable participation/review state rules; `web/study.js`
+provides the quest UI and opt-in browser persistence. Its storage namespace combines
+installation and age, not a verified learner identity. See [study methods](STUDY-METHODS.md).

@@ -43,6 +43,10 @@ benefit or a promise that one method works for every person.
 | --- | --- | --- |
 | Local AI explanations | Use Ollama and downloaded Qwen 3 8B weights on your computer | Hardware affects speed; setup needs internet |
 | Make it make sense | Choose plain explanation, steps, an example, a verbal picture or an understanding question | Responses must pass checks; some useful retries are still withheld |
+| Six study methods | Recall, review, teach-back, worked practice, a verbal concrete scene and a small mission | Source-checked practice guidance, not automatic marking |
+| Small study quests | Explore → Try → Reflect, with optional covering, hints, answer support and untimed breaks | Activities stay in memory and can expire; no timed pressure |
+| Gentle gamification | Optional participation achievements, a static garden or quiet/no celebration | No speed rewards, streak penalties, leaderboards or mastery scores |
+| Voluntary review list | Choose to revisit an idea in one, three or seven days | In-memory by default; opt-in browser saving, no reminders or adaptive algorithm |
 | Read-aloud | Listen to passages and checked explanations with adjustable speed | Local English system voice required; highlighting depends on voice events |
 | Reading preferences | Adjust text size, line spacing, font and warm/plain/dark theme | Saved in this browser; no individual learner profiles yet |
 | Optional Dyslexie font | Select a separately licensed font already installed locally | Font is not bundled; fallback font is used if unavailable |
@@ -110,6 +114,25 @@ An adult can use a foundational numeracy passage in the adult space. Choosing
 not gain access to adult-only passages by changing a reading preference or
 asking Piet to ignore the age setting.
 
+### 6. Practise without pressure
+
+Choose the original **Sharing equally** passage, then **Help me remember** and
+start a small quest. Explore the passage, select **Ready to try**, and answer,
+ask for a hint or choose **Show me**. All support paths can finish the same
+Explore → Try → Reflect flow and receive equal participation credit.
+
+Choose **Let me teach you** to explain reasoning, or **Show me, then help me try**
+for a worked example and labelled practice. You can pause without a countdown,
+turn off achievements or choose a quiet display. Optional review dates are choices,
+not deadlines. No learner response is saved in browser progress storage.
+
+See [study methods and gentle gamification](docs/STUDY-METHODS.md) for the six
+methods, privacy controls, review list, expiry and current limits.
+
+![Optional participation and review choices using the original sample lesson](study-progress-preview.jpg)
+
+*Demonstration participation only; these are not learner assessment results.*
+
 ## Start using Piet
 
 ### Windows
@@ -172,8 +195,10 @@ own reviewed design.
 The application contacts a fixed loopback Ollama endpoint, uses local system
 voices, and has no cloud explanation fallback. Initial dependency/model downloads
 need internet. Questions and answers stay in memory for the current visit;
-presentation preferences use browser storage. Books and review history persist
-locally. No application prompt logs, recordings or analytics are collected.
+presentation preferences use browser storage. Books and material-review history
+persist locally. Study participation/review references stay in memory unless the
+learner explicitly opts into browser saving; typed responses are not saved there.
+No application prompt logs, recordings or analytics are collected.
 
 Before a generated explanation is shown, Piet checks its structure, length and
 source excerpt, then requests a semantic review of safety, age suitability,
@@ -190,7 +215,8 @@ or multi-user deployment. See [privacy and validation](docs/PRIVACY-AND-VALIDATI
 
 Offline dictation and voice questions; OCR and visual material handling; fuller
 curriculum mapping and book retrieval; protected owner/learner accounts; bookmarks
-and reviewed progress measures; broader accessibility and learner testing; and
+and reviewed mastery measures; authenticated private progress profiles, adaptive
+review scheduling, broader accessibility and learner testing; and
 professional review of any future therapy-support content.
 
 These are roadmap items, not current features. See [roadmap](ROADMAP.md) for
@@ -201,6 +227,7 @@ priorities and the readiness work needed before a learner pilot.
 | Guide | Purpose |
 | --- | --- |
 | [Learner and facilitator guide](docs/USER-GUIDE.md) | Everyday use and realistic example prompts |
+| [Study methods and gamification](docs/STUDY-METHODS.md) | Small quests, hints, optional rewards, review dates and saving controls |
 | [Material library](docs/MATERIAL-LIBRARY.md) | Import, source review, age approval and backup |
 | [Windows installation](WINDOWS-INSTALL.md) | Setup, shortcuts, updates and Mac-to-Windows transfer |
 | [Privacy and validation](docs/PRIVACY-AND-VALIDATION.md) | Local data, checks and their limits |
@@ -211,7 +238,11 @@ priorities and the readiness work needed before a learner pilot.
 | [Change history](CHANGELOG.md) | Record of shipped changes |
 | [Contributing and documentation upkeep](CONTRIBUTING.md) | Required checks and which guides to update |
 
-The baseline automated suite has **42 tests** and passed on the
+The current study slice has **63 Python application tests** and **7 JavaScript
+participation-state checks**. See the [validation record](VALIDATION.md) for live
+model/browser checks and their limits.
+
+The installer foundation suite had **42 tests** and passed on the
 [Windows runner for the installer foundation](https://github.com/bitrite/Piet-Educator/actions/runs/42602249169).
 That checks application compatibility, installer syntax, payload layout and Python
 detection; it does not exercise a complete interactive Windows installation or
@@ -221,6 +252,7 @@ certify child safety. Historical live-model and browser checks are recorded in
 ```sh
 python3 -m unittest discover -s tests -v
 python3 tools/check_docs.py
+node --test tests/study-state.test.cjs
 ```
 
 Feature, installation, data-handling and limit changes must update their supporting

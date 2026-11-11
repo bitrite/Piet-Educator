@@ -36,9 +36,12 @@ repository root:
 ```sh
 python3 -m unittest discover -s tests -v
 python3 tools/check_docs.py
+node --test tests/study-state.test.cjs
 ```
 
-The automated tests use temporary libraries and synthetic documents. They do not
+Node is needed only for the JavaScript development checks (CI uses Node 22), not
+for running the browser application or Windows installer. The automated tests
+use temporary libraries and synthetic documents. They do not
 need real learner data or a model download. The Windows workflow also parses and
 checks the installer. After changing extraction, approval, age/access boundaries
 or launcher behaviour, run the relevant tests and complete the combined suite.
@@ -48,6 +51,14 @@ do not invent a new full test run in the validation record.
 For model/prompt changes, use [evaluate_live.py](evaluate_live.py) with downloaded
 local models and inspect the synthetic outputs. The small live suite does not
 replace human review or an adversarial evaluation. Avoid printing private inputs.
+
+For study-card or practice-feedback changes, also use
+`python3 evaluate_study.py --method all` against original samples. Check that the
+methods differ, support paths keep equal participation credit, suggested answers
+are not published before explicit support, and meaning feedback does not correct
+spelling. Record output limitations rather than interpreting a checked response
+as proof of understanding. Exercise saving off/on and clear controls with synthetic
+data; never use a real learner's browser history as a test fixture.
 
 Before shipping, check `git status`, the staged file list and ignored data. If new
 guides/images are linked by the README, keep them in the Windows source/payload

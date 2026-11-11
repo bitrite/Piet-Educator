@@ -93,3 +93,41 @@ scans. OCR, full-book retrieval and independent learner readiness are pending.
 - Documentation link checks validate destinations, not external URLs, heading
   anchors, clinical statements or actual feature behaviour. Examples are labelled
   illustrative or verified against the recorded synthetic demonstrations.
+
+## Study and gentle participation slices — 11 November 2026
+
+- Final local application suite: **63 tests passed**. Added study-card structure,
+  source/age access, expiry/eviction, hidden suggested answers, action tokens,
+  edited/withdrawn source handling, feedback context and activity consistency checks.
+- **7 JavaScript state tests passed**: assistance earns equal completion credit,
+  elapsed days do not subtract participation, revoked/revised references are removed,
+  stored state excludes learner answers, rewards can be off, and voluntary review
+  dates can be replaced/removed. JavaScript syntax and documentation links checked.
+- All six methods produced checked cards from the original sharing sample in a
+  live run. An adult teach-back activity also passed. This is narrow synthetic
+  coverage, not proof of learning benefit or comprehensive safety.
+- Live inspection caught two failures despite checked model outputs: spelling
+  correction in meaning practice, and feedback answering the source example when
+  the practice question used different numbers. Added explicit meaning instructions,
+  supplementary style rejection, separate practice-reference evidence and a required
+  activity-consistency review. Worked practice then used five each for ten counters
+  shared between two people, rather than four from the original twelve/three example.
+- Re-ran the original six explanation/safety smoke cases on the shared validation
+  code; all six passed.
+- Practice quotations are explicitly labelled as derived checked references, not
+  literal book excerpts. Original material approval/fingerprints remain enforced.
+  Writing-demand or claimed-understanding wording uses explicit reference support
+  through the same gate, rather than pretending to assess the learner.
+- Browser checks confirmed Explore → Try → Reflect, optional covering, a checked
+  hint, explicit answer support, untimed pause/resume, equal one-completion credit,
+  optional review reference and garden. With saving off, reloading removed this
+  synthetic visit's participation/review state while reading preferences remained.
+- No real learner responses, private curricula or clinical data were used. Source
+  snapshots and participation counters do not establish mastery. Feedback wording
+  and mathematical/educational correctness still need independent review.
+
+Spaced review currently uses user-selected dates, not a performance-adaptive
+algorithm. Saved browser state is shared by the same installation/age/browser,
+not isolated by learner identity. Dictation, authenticated profiles and broader
+learner/safeguarding evaluation remain pending. The Windows installer includes
+study assets; CI also exercises the JavaScript state checks.

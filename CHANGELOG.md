@@ -3,6 +3,25 @@
 This project is a development prototype. Entries describe repository changes;
 they do not imply a certified or production-ready release.
 
+## Study and participation slices — 11 November 2026
+
+- Added six study choices: recall, voluntary review, teach-back, worked practice,
+  verbal concrete scenes and one small mission.
+- Added Explore → Try → Reflect with optional covering, hints, explicit answer
+  support, meaning-focused feedback and untimed pause/resume.
+- Reused source/age checks for generated cards and feedback; added source-bound
+  card expiry and rechecking after content changes or withdrawal.
+- Added optional participation achievements and a static garden/quiet/no-celebration
+  choice. No scores, speed rewards, missed-day penalties, streaks or leaderboards.
+- Added an optional review list and explicit browser-saving choice. No practice
+  responses or generated feedback are saved in that record; no learner accounts
+  or adaptive spaced-repetition algorithm are claimed.
+- Added backend, HTTP and JavaScript state coverage; updated Windows payload/CI
+  and supporting documentation. Live checking caught and corrected an initial
+  spelling-focused numeracy response and insufficient distinction between methods.
+  A worked-practice check also caught feedback answering the source example rather
+  than the practice problem; explicit activity context and consistency gating were added.
+
 ## Documentation expansion — 9 November 2026
 
 - Expanded the product description, intended audiences, current feature table,

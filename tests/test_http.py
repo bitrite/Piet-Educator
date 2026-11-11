@@ -17,7 +17,8 @@ class HttpBoundaryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.directory = tempfile.TemporaryDirectory()
-        cls.server = make_server(port=0, service=Educator(CATALOG, model=FakeModel()), data_dir=cls.directory.name, owner_key='test-owner-access-code')
+        cls.service = Educator(CATALOG, model=FakeModel())
+        cls.server = make_server(port=0, service=cls.service, data_dir=cls.directory.name, owner_key='test-owner-access-code')
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.thread.start()
 
@@ -90,6 +91,30 @@ class HttpBoundaryTests(unittest.TestCase):
         book = self.server.library.import_file(upload(b"Private draft source, different file."))
         for path in ('/api/library/' + book['id'], '/api/library/' + book['id'] + '/original'):
             self.assertEqual(self.call('GET', path)[0], 403)
+
+    def test_study_routes_require_learner_token(self):
+        for path in ('/api/study/create', '/api/study/action'):
+            self.assertEqual(self.call('POST', path, '{}', {'Content-Type': 'application/json'})[0], 403)
+
+    def test_study_card_and_explicit_support_through_http(self):
+        from test_study import StudyModel, CARD
+        previous = self.service.model, self.service.judge
+        self.service.model = self.service.judge = StudyModel()
+        try:
+            _, raw, _ = self.call('GET', '/api/session')
+            session = json.loads(raw)
+            self.assertIn('sharing', session['study_source_versions'])
+            headers = {'Content-Type': 'application/json', 'X-Piet-Token': session['token']}
+            status, raw, _ = self.call('POST', '/api/study/create', json.dumps({'lesson_id':'sharing','method':'recall','challenge':'familiar'}), headers)
+            self.assertEqual(status, 200)
+            card = json.loads(raw); self.assertEqual(card['status'], 'checked')
+            self.assertNotIn('expected_answer', card)
+            status, raw, _ = self.call('POST', '/api/study/action', json.dumps({'activity_id':card['activity_id'],'action':'reveal'}), headers)
+            self.assertEqual(status, 200); self.assertEqual(json.loads(raw)['answer'], CARD['expected_answer'])
+            status, _, _ = self.call('POST', '/api/study/create', json.dumps({'lesson_id':'sharing','method':'recall','challenge':'familiar','age_band':'adult'}), headers)
+            self.assertEqual(status, 400)
+        finally:
+            self.service.model, self.service.judge = previous
 
 
 if __name__ == "__main__":

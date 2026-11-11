@@ -7,6 +7,10 @@ The [validation record](VALIDATION.md) defines the evidence behind current claim
 
 - Local Ollama/Qwen configuration and passage-based learning responses.
 - Five explanation methods, retry context and gentle understanding prompts.
+- Six checked study methods and Explore → Try → Reflect activities with hints,
+  explicit support, optional covering and untimed break/resume.
+- Optional participation achievements and garden/quiet celebrations, plus a
+  voluntary one/three/seven-day review list with opt-in browser saving.
 - Local English read-aloud, conditional highlighting and reading preferences.
 - Original demo lessons and reviewed PDF/EPUB/DOCX/text/Markdown material library.
 - Drafts, source references, corrections, explicit age approval and withdrawal.
@@ -43,7 +47,10 @@ The [validation record](VALIDATION.md) defines the evidence behind current claim
 - OCR for scans, checked diagram/equation support and richer source comparison.
 - Term/topic/learning-outcome mapping and search across approved book passages.
 - Bookmarks, resume/recap and carefully reviewed progress measures.
-- Broader language support, voice/accent testing and optional break/task support.
+- Authenticated learner progress and adaptive review scheduling. Current counts
+  track participation; current review dates are user-selected, not mastery-based.
+- Broader language support and voice/accent testing; the initial manual break
+  and one-task practice flow is implemented, without automatic timing.
 - Easier library metadata maintenance and resource management.
 - Font distribution/export licensing where required.
 - Any support for professional-selected therapy exercises only after separate

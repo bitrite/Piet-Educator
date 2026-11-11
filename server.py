@@ -10,6 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from educator import AGE_BANDS, Educator, Ollama
 from library import Library
+from study import Study, fingerprint
 
 ROOT = Path(__file__).resolve().parent
 
@@ -19,6 +20,7 @@ def make_server(band="6-9", port=8767, model="qwen3:8b", judge_model=None, servi
     service = service or Educator(catalog, band, Ollama(model), Ollama(judge_model or model))
     library = Library(data_dir or ROOT / "data")
     service.library = library
+    study = Study(service)
     if owner_key is None:
         keyfile = library.root / "owner-key"
         if not keyfile.exists():
@@ -62,10 +64,12 @@ def make_server(band="6-9", port=8767, model="qwen3:8b", judge_model=None, servi
             if not self.trusted():
                 return self.send(403, {"error": "Open Piet from its local address."})
             if self.path == "/api/session":
+                lessons = service.available_lessons()
                 return self.send(200, {"token": token, "age_band": service.band,
                     "application": "piet-educator",
                     "instance_id": hashlib.sha256(str(library.root.resolve()).casefold().encode()).hexdigest()[:16],
-                    "age_label": AGE_BANDS[service.band][0], "lessons": service.available_lessons(),
+                    "age_label": AGE_BANDS[service.band][0], "lessons": lessons,
+                    "study_source_versions": {x["id"]: fingerprint(x) for x in lessons},
                     "model": model, "prototype": True})
             if self.path.startswith("/api/library"):
                 if not self.owner():
@@ -83,6 +87,8 @@ def make_server(band="6-9", port=8767, model="qwen3:8b", judge_model=None, servi
                 return self.send(404, {"error": "Material not found."})
             files = {"/": ("index.html", "text/html; charset=utf-8"),
                      "/app.js": ("app.js", "text/javascript; charset=utf-8"),
+                     "/study.js": ("study.js", "text/javascript; charset=utf-8"),
+                     "/study-state.js": ("study-state.js", "text/javascript; charset=utf-8"),
                      "/style.css": ("style.css", "text/css; charset=utf-8"),
                      "/library": ("library.html", "text/html; charset=utf-8"),
                      "/library.js": ("library.js", "text/javascript; charset=utf-8")}
@@ -120,17 +126,22 @@ def make_server(band="6-9", port=8767, model="qwen3:8b", judge_model=None, servi
                 match = re.fullmatch(r"/api/library/passages/([a-f0-9]{32})/review", self.path)
                 if match:
                     return self.send(200, library.review(match[1], data))
-                if self.path != "/api/explain":
+                if self.path not in ("/api/explain", "/api/study/create", "/api/study/action"):
                     return self.send(404, {"error": "Action not found"})
                 if not busy.acquire(blocking=False):
                     return self.send(429, {"error": "Piet is finishing another explanation. Try again shortly."})
                 try:
-                    result = service.explain(data)
+                    if self.path == "/api/study/create":
+                        result = study.create(data)
+                    elif self.path == "/api/study/action":
+                        result = study.act(data)
+                    else:
+                        result = service.explain(data)
                 finally:
                     busy.release()
                 self.send(200, result)
             except (ValueError, TypeError, TimeoutError) as exc:
-                self.send(400, {"error": str(exc)[:400] if is_library else "Check the lesson, explanation method and question length."})
+                self.send(400, {"error": str(exc)[:400] if is_library or self.path.startswith('/api/study/') else "Check the lesson, explanation method and question length."})
             except Exception:
                 self.send(503, {"error": "The local service could not finish. Please try again."})
 

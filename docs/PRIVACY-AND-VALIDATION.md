@@ -9,6 +9,8 @@ not a guarantee of accuracy, clinical benefit or readiness for independent child
 | --- | --- |
 | Questions, generated answers and retry context | In application/browser memory for the visit; no application conversation history |
 | Reading preferences | Browser local storage, shared by users of that browser profile |
+| Study participation and review references | Memory by default; optional browser storage scoped to installation/age, not person |
+| Generated study cards and reference answers | Bounded server memory cache, up to 128 cards for one hour; no learner answers cached |
 | Imported originals and extracted/corrected text | Local data folder, persistent |
 | Review history and reviewer names | Local SQLite database, persistent |
 | Library access code | Local owner-key file; owner page holds the entered code in memory until locked/reloaded |
@@ -73,3 +75,25 @@ sensitive topics needs reviewed age-suitable sources and human oversight.
 Before a child pilot: complete the account/consent design, qualified source and
 output review, broader adversarial/repeatability checks, accessibility testing
 and a locally reviewed safeguarding process. See the [roadmap](../ROADMAP.md).
+
+## Study progress is not a learner account
+
+Study display choices are browser preferences. Saving participation/review data is
+separately opt-in. The record contains only totals, fixed achievement codes,
+approved source references/fingerprints and selected review dates. No typed
+responses, diagnoses, assessment scores or generated feedback are saved there.
+Turn saving off to remove the saved record, or use the space's clear control.
+Storage failures are reported rather than treated as a successful removal.
+
+The namespace combines library installation and age band, not a person's identity.
+Same-browser users of that age space share it. There are no streak penalties,
+leaderboards, rewards for speed or notifications. Progress can be changed by a
+person controlling the browser; it is participation, not evidence of mastery.
+See [study methods](STUDY-METHODS.md) for the full data and expiry limits.
+
+Study-card creation is checked against the approved source passage. Practice
+feedback uses the card's checked practice question/reference as its immediate
+evidence, with an additional activity-consistency review; this matters when a
+practice example uses different numbers. Its quotation is labelled as a practice
+reference rather than attributed literally to the original book. Source approval
+and fingerprint are still rechecked against the original material.
